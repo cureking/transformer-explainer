@@ -1,0 +1,25 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+.vercel
+.output
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+yarn.lock
+
+__pycache__
+
+params_output
+
+static/consent-form.pdf
+# 模型分片合计约 660MB，不纳入 git（获取方式见 README）
+static/model-v2/
+
+# IDE
+.idea/
+.xcodemap/
