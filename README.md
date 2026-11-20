@@ -78,6 +78,21 @@ python src/utils/model/chunk.py
 
 GPT-2 的分词器基于英文语料训练，中文会被拆成字节级碎片（例如 10 个汉字约等于 23 个词元，且解码后出现乱码），模型无法生成有意义的中文。因此**示例输入保留英文**，这是教学准确性所需；中英文分词差异本身也值得作为知识点单独讲解。
 
+## 已知局限
+
+1. **5 张正文插图内的英文标签尚未替换**：`static/article_assets/` 下的 `embedding.png`、`attention.png`、`QKV.png`、`mlp.png`、`softmax.png` 是把英文界面截图后合成的位图，其中的 `Key / Query / Value / Out / Dot product / Scaling · Mask / Softmax · Dropout / Token / Positional Encoding` 等标签是像素而非文本，无法通过改代码翻译。需要重新绘制或在设计工具中替换文字（约 1–2 人日）。
+2. **模型分片不在 git 仓库内**：`static/model-v2/`（约 660MB）被 `.gitignore` 排除，克隆后需按上文「关于模型文件」获取，否则页面会一直停留在「模型下载中」，但仍可用内置示例数据浏览全部可视化。
+3. **示例输入保留英文**：原因见上文「为什么示例输入是英文？」。
+4. 正文中指向 Hugging Face、YouTube 等站点的原始外链保留未动，国内访问可能需要自备网络条件。
+
+## 部署说明
+
+`npm run build` 产出纯静态站点（`build/`，约 660MB，其中模型占绝大部分）。
+
+- 若托管在 GitHub Pages，由于仓库不含模型分片，需要在构建前把模型放回 `static/model-v2/`（例如在 CI 中从上游仓库拉取），否则线上只能浏览示例数据。
+- 站点默认部署在子路径 `/transformer-explainer`（见 `svelte.config.js` 的 `paths.base`）；若部署到独立域名根路径，请把 `base` 改为 `''`。
+- 页面已移除 Google Fonts 外链、改用自托管字体；GTM/GA 仅在设置 `VITE_GTM_ID` / `VITE_GA_ID` 环境变量时才会加载。
+
 ## 许可与致谢
 
 本项目沿用上游的 [MIT License](./LICENSE)，版权归 Polo Club of Data Science 所有；中文翻译部分的改动同样以 MIT 许可证发布。
