@@ -10,6 +10,8 @@
 		isOnBlockTransition
 	} from '~/store';
 	import * as d3 from 'd3';
+	// 显式引入副作用：保证 selection 原型上有 transition 方法（Vite 5 下 d3-transition 会被摇树掉）
+	import 'd3-transition';
 	import { onMount, tick } from 'svelte';
 	import resolveConfig from 'tailwindcss/resolveConfig';
 	import tailwindConfig from '../../tailwind.config';
